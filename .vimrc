@@ -28,6 +28,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'bronson/vim-trailing-whitespace'
   " Gitを便利に使う
   Plug 'tpope/vim-fugitive'
+  " terraform
+  Plug 'hashivim/vim-terraform'
+  let g:terraform_fmt_on_save = 1
 
 call plug#end()
 
@@ -92,6 +95,8 @@ set smarttab
 set list
 " OSのクリップボードを使う
 set clipboard+=unnamed
+" バックスペースオプション
+set backspace=indent,eol,start
 
 " 構文毎に文字色を変化させる
 syntax on
