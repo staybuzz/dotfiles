@@ -156,7 +156,6 @@ if which pbcopy >/dev/null 2>&1 ; then
 fi
 
 
-
 ########################################
 # OS 別の設定
 case ${OSTYPE} in
@@ -178,23 +177,20 @@ export PYENV_ROOT=$HOME/.pyenv
 export PATH=${PYENV_ROOT}/shims:$PATH
 export PATH=${PYENV_ROOT}/bin:$PATH
 
-# for lab
-function set_proxy(){
-  export ALL_PROXY=proxy.uec.ac.jp:8080
-  export http_proxy=$ALL_PROXY
-  export https_proxy=$ALL_PROXY
-  export ftp_proxy=$ALL_PROXY
-  export no_proxy="127.0.0.1,localhost,192.168.0.0/16"
-  alias pip='pip --proxy proxy.uec.ac.jp:8080'
-}
-function unset_proxy(){
-  unset ALL_PROXY
-  unset http_proxy
-  unset https_proxy
-  unset ftp_proxy
-  unset no_proxy
-  unalias pip
-}
-
 # for go
 export PATH=${HOME}/go/bin:$PATH
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+alias be="bundle exec"
+
+# peco
+function peco-history-selection() {
+    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+
+zle -N peco-history-selection
+bindkey '^T' peco-history-selection
