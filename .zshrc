@@ -187,10 +187,11 @@ alias be="bundle exec"
 
 # peco
 function peco-history-selection() {
-    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+    BUFFER=`history -n 1 | tac | awk '!a[$0]++' | peco`
     CURSOR=$#BUFFER
     zle reset-prompt
 }
 
 zle -N peco-history-selection
 bindkey '^T' peco-history-selection
+alias pbcopy='xsel --clipboard --input'
